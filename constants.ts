@@ -1,4 +1,5 @@
 
+
 import { PipeDef, CalculationInput, HunterDataPoint } from './types';
 
 export const PIPES: PipeDef[] = [
@@ -21,14 +22,14 @@ export const DEFAULT_INPUTS: CalculationInput = {
   intensity: 88.82,
   coeffC: 0.95,
   ks: 1.5e-6,
-  viscosity: 1.0e-6
+  viscosity: 1.0e-6,
+  fillRatio: 85 // Default 85%
 };
 
 // Physical Constants
 export const GRAVITY = 9.81; // m/s^2
 export const GAMMA_WATER = 1000; // kgf/m^3
 export const MIN_TRACTIVE_FORCE = 0.15; // kg/m^2
-export const FILL_RATIO = 0.85; // y/D
 
 // --- HUNTER CURVE DATA ---
 // Datos transcritos fielmente de la tabla proporcionada para coincidir con la Macro de Excel.

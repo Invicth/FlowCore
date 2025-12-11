@@ -1,3 +1,5 @@
+
+
 import React, { useState, useMemo } from 'react';
 import { DEFAULT_INPUTS, PIPES } from './constants';
 import { CalculationInput, Slope } from './types';
@@ -55,7 +57,7 @@ const App: React.FC = () => {
             />
             
             <div className="mt-8">
-              <ResultTable data={tableData} />
+              <ResultTable data={tableData} fillRatio={inputs.fillRatio} />
             </div>
           </div>
         );

@@ -1,3 +1,5 @@
+
+
 import React from 'react';
 import { CalculationInput } from '../types';
 
@@ -96,6 +98,25 @@ const InputPanel: React.FC<InputPanelProps> = ({ inputs, onChange, onCalculate }
               className="text-right w-24 font-mono bg-transparent outline-none focus:bg-gray-100 pr-1 print:text-black"
             />
             <span className="font-mono text-xs text-gray-500 w-12 text-right print:text-black">m²/s</span>
+          </div>
+        </div>
+
+        {/* Input Item */}
+        <div className="flex justify-between items-center border-b border-gray-400 pb-1">
+          <label className="font-serif italic text-gray-800 print:text-black">
+            Relación de Llenado <span className="font-normal not-italic ml-1">(y/D)</span>
+          </label>
+          <div className="flex items-center">
+            <input
+              type="number"
+              step="1"
+              min="1"
+              max="100"
+              value={inputs.fillRatio}
+              onChange={(e) => handleChange('fillRatio', e)}
+              className="text-right w-24 font-mono bg-transparent outline-none focus:bg-gray-100 pr-1 print:text-black"
+            />
+            <span className="font-mono text-xs text-gray-500 w-12 text-right print:text-black">%</span>
           </div>
         </div>
 

@@ -1,3 +1,5 @@
+
+
 import React from 'react';
 import { PipeDef, ResultCell, Slope } from '../types';
 
@@ -6,6 +8,7 @@ interface ResultTableProps {
     pipe: PipeDef;
     results: { [slopeKey: string]: ResultCell };
   }[];
+  fillRatio: number;
 }
 
 const slopes = [Slope.S05, Slope.S10, Slope.S20];
@@ -48,7 +51,7 @@ const CellContent: React.FC<{ result: ResultCell }> = ({ result }) => {
   );
 };
 
-const ResultTable: React.FC<ResultTableProps> = ({ data }) => {
+const ResultTable: React.FC<ResultTableProps> = ({ data, fillRatio }) => {
   return (
     <div className="overflow-x-auto">
       {/* Scientific Table Caption */}
@@ -94,7 +97,7 @@ const ResultTable: React.FC<ResultTableProps> = ({ data }) => {
          <div>
             <strong>Criterios de Diseño:</strong>
             <ul className="list-disc list-inside mt-1 space-y-0.5">
-                <li>Régimen Parcialmente Lleno (y/D = 0.85).</li>
+                <li>Régimen Parcialmente Lleno (y/D = {(fillRatio / 100).toFixed(2)}).</li>
                 <li>Fuerza Tractiva Mínima τ ≥ 0.15 kg/m².</li>
             </ul>
          </div>

@@ -1,5 +1,7 @@
+
+
 import { PipeDef, CalculationInput, ResultCell } from '../types';
-import { GRAVITY, GAMMA_WATER, MIN_TRACTIVE_FORCE, FILL_RATIO } from '../constants';
+import { GRAVITY, GAMMA_WATER, MIN_TRACTIVE_FORCE } from '../constants';
 
 /**
  * Helper to calculate hydraulic geometry based on Diameter (m) and Depth (m)
@@ -57,7 +59,7 @@ export const calculateCell = (
   inputs: CalculationInput
 ): ResultCell => {
   const { id_mm } = pipe;
-  const { intensity, coeffC, ks, viscosity } = inputs;
+  const { intensity, coeffC, ks, viscosity, fillRatio } = inputs;
   
   const D = id_mm / 1000;
   const S = slopePercent / 100;
@@ -66,7 +68,8 @@ export const calculateCell = (
   const intensityMs = intensity / 3600000;
 
   // --- PASO A: LÍMITE SUPERIOR (MAX) ---
-  const yMax = FILL_RATIO * D; // 0.85 * D
+  const fillRatioDecimal = fillRatio / 100;
+  const yMax = fillRatioDecimal * D; 
   const geomMax = getGeometry(D, yMax);
   const tauMax = GAMMA_WATER * geomMax.Rh * S;
 
@@ -92,7 +95,7 @@ export const calculateCell = (
   let found = false;
 
   // Iteration parameters
-  // Search from very low depth up to 0.85D
+  // Search from very low depth up to yMax
   const steps = 200;
   const stepSize = yMax / steps;
 
@@ -109,9 +112,9 @@ export const calculateCell = (
     }
   }
 
-  // If we never reached the target Rh within 0.85D, the pipe is invalid 
+  // If we never reached the target Rh within yMax, the pipe is invalid 
   // (though theoretically if tauMax >= 0.15, we should have found it, 
-  // unless 0.85D is strictly the only point meeting it, handling edge cases).
+  // unless yMax is strictly the only point meeting it, handling edge cases).
   if (!found) {
      return {
       isValid: false,

@@ -1,4 +1,5 @@
 
+
 export interface PipeDef {
   nombre: string;
   id_mm: number;
@@ -9,16 +10,17 @@ export interface CalculationInput {
   coeffC: number;    // dimensionless
   ks: number;        // meters
   viscosity: number; // m^2/s
+  fillRatio: number; // percentage (0-100)
 }
 
 export interface ResultCell {
   isValid: boolean;
   failReason?: 'LOW_TAU_MAX' | 'MIN_GREATER_THAN_MAX'; // Reason for failure
-  areaMax?: number;  // m^2 (Calculated at y/D = 0.85)
+  areaMax?: number;  // m^2 (Calculated at y/D max)
   areaMin?: number;  // m^2 (Calculated at y where Tau = 0.15)
-  qMax?: number;     // L/s (at 0.85)
+  qMax?: number;     // L/s (at y/D max)
   qMin?: number;     // L/s (at min depth)
-  tauMax: number;    // kg/m^2 (at 0.85)
+  tauMax: number;    // kg/m^2 (at y/D max)
   slope: number;     // %
 }
 
